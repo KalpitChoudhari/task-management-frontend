@@ -4,7 +4,7 @@ import Todo from "./Todo";
 import axios from "axios";
 
 const Section = props => {
-  const { name, setTasks, inProgressTasks, completedTasks, todoTasks } = props;
+  const { name, setTasks, inProgressTasks, completedTasks, todoTasks, sectionColor } = props;
 
   let currentTasks = [];
 
@@ -29,7 +29,8 @@ const Section = props => {
 
     axios.patch(`http://localhost:4000/api/v1/tasks/${id}`, {
       id: id,
-      status: name
+      status: name,
+      color: sectionColor
     },
     {
       headers: {
@@ -53,9 +54,9 @@ const Section = props => {
 
   return (
     <div className="h-full" ref={drop}>
-      <div className="bg-white rounded-md flex justify-between px-5 py-1 items-center mb-5">
+      <div className="bg-white rounded-md flex justify-between px-5 py-1 items-center mb-5 top-0 z-50">
         <span className="antialiased text-sm capitalize">{name.replace("_"," ")}</span>
-        <Indicator color="#ff8949" />
+        <Indicator color={sectionColor} />
       </div>
       {
         currentTasks.map(task => (

@@ -31,18 +31,32 @@ const Home = () => {
   const completedTasks = tasks.filter(task => task.status === 'completed');
   const todoTasks = tasks.filter(task => task.status === 'todo');
 
-  const sections = ['todo', 'in_progress', 'completed'];
+  const sections = [
+    {
+      name: 'todo',
+      color: '#ff8949'
+    },
+    {
+      name: 'in_progress',
+      color: '#ffcc00'
+    },
+    {
+      name: 'completed',
+      color: '#00cc66'
+    }
+  ];
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="bg-[#f4f4f4] rounded" style={{ height: '700px' }}>
-        <div className="grid grid-cols-3 grid-flow-col gap-3 p-2">
+      <div className="bg-[#f4f4f4] rounded mt-10">
+        <div className="grid grid-cols-3 grid-flow-col gap-3 p-2 overflow-y-auto" style={{ height: '700px' }}>
           {
             sections.map(section => {
               return (
                 <Section
-                  key={section}
-                  name={section}
+                  key={section.name}
+                  name={section.name}
+                  sectionColor={section.color}
                   setTasks={setTasks}
                   inProgressTasks={inProgressTasks}
                   completedTasks={completedTasks}

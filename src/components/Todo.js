@@ -12,7 +12,11 @@ const Todo = props => {
   }));
 
   return (
-    <div ref={drag} className={`rounded-lg flex px-5 py-2 items-start flex-col justify-start mt-2 ${isDragging ? 'opacity-20' : 'opacity-100'}`} style={{backgroundColor: color}}>
+    <div
+      ref={drag}
+      className={`rounded-lg flex px-5 py-2 items-start flex-col justify-start mt-2 ${isDragging ? 'opacity-20' : 'opacity-100'}`}
+      style={{backgroundColor: color, transform: 'translate(0, 0)'}}
+    >
       <div className="text-xs mb-2">
         {day}
       </div>
