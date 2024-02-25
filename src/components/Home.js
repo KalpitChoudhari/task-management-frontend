@@ -4,6 +4,7 @@ import axios from "axios";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Section from "./Section";
+import TaskDialog from "./TaskDialog";
 
 const Home = () => {
   const authToken = localStorage.getItem('_user_access_token');
@@ -48,8 +49,9 @@ const Home = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="bg-[#f4f4f4] rounded mt-10">
-        <div className="grid grid-cols-3 grid-flow-col gap-3 p-2 overflow-y-auto" style={{ height: '700px' }}>
+      <TaskDialog />
+      <div className="bg-[#f4f4f4] rounded mt-2">
+        <div className="grid grid-cols-3 grid-flow-col gap-3 p-2 overflow-y-auto" style={{ height: '680px' }}>
           {
             sections.map(section => {
               return (
