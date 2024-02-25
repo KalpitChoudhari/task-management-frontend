@@ -13,8 +13,8 @@ function App() {
         <Toaster />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/sign-in" element={<Login />} />
-            <Route path="/sign-up" element={<App />} />
+            <Route path="/sign-in" element={<Login type="login" />} />
+            <Route path="/sign-up" element={<Login type="signup" />} />
           </Routes>
         </Layout>
       </BrowserRouter>

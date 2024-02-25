@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
-const Login = () => {
+const Login = ({ type }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -9,7 +10,10 @@ const Login = () => {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    await axios.post('http://localhost:4000/users/sign_in', {
+    const URI = type === 'signup' ? 'http://localhost:4000/users' : 'http://localhost:4000/users/sign_in';
+    const message = type === 'signup' ? 'Signed up successfully!' : 'Signed in successfully!';
+
+    await axios.post(URI, {
       user: {
         email: email,
         password: password
@@ -19,6 +23,7 @@ const Login = () => {
       const authToken = response.headers.get('Authorization')
       if (response.status === 200) {
         localStorage.setItem('_user_access_token', authToken);
+        toast.success(message);
         navigate('/');
       }
     }).catch((error) => {
