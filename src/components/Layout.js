@@ -1,6 +1,29 @@
-import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Layout = ({ children }) => {
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    const token = localStorage.getItem('_user_access_token');
+    // localStorage.removeItem('_user_access_token');
+    axios.delete('http://localhost:4000/users/sign_out', {
+      headers: {
+        'Authorization': token
+      }
+    }
+    ).then((response) => {
+      if (response.status === 200) {
+        localStorage.removeItem('_user_access_token');
+        navigate('/sign-in');
+      }
+    }).catch((error) => {
+      console.log(error);
+    }
+    )
+  }
+
+
   const routes = [
     {
       name: 'Home',
@@ -16,7 +39,8 @@ const Layout = ({ children }) => {
     },
     {
       name: 'Sign Out',
-      link: '/sign-out',
+      // link: '/sign-out',
+      onClick: handleSignOut,
     },
   ]
 
@@ -25,7 +49,7 @@ const Layout = ({ children }) => {
       <nav>
         {
           routes.map(route => (
-            <NavLink key={route.link} to={route.link} activeStyle={{ fontWeight: 'bold' }}>
+            <NavLink key={route.name} to={route.link} onClick={route.onClick} >
               {route.name}
             </NavLink>
           ))
@@ -33,7 +57,6 @@ const Layout = ({ children }) => {
       </nav>
 
       <main>
-        <h2 className="text-3xl font-bold underline">This is layout</h2>
         {children}
       </main>
     </>

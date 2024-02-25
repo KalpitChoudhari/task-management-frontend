@@ -3,21 +3,23 @@ import { useNavigate } from 'react-router-dom';
 
 const withAuth = (Component) => (props) => {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] =  useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('_user_access_token');
+    const checkAuth = () => {
+      const authToken = localStorage.getItem('_user_access_token');
+      setIsAuthenticated(!!authToken);
 
-    setIsAuthenticated(isAuthenticated);
+      if (!authToken) {
+        navigate("/sign-in");
+      }
+    };
 
-    if (!isAuthenticated) {
-      navigate("/sign-in");
-    }
-  }, [])
+    checkAuth();
 
-  if (isAuthenticated) {
-    return <Component {...props} />;
-  }
+  }, [navigate]);
+
+  return isAuthenticated ? <Component {...props} /> : null;
 };
 
 export default withAuth;

@@ -6,7 +6,7 @@ import Layout from './components/Layout';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App max-w-screen-lg mx-auto">
       <BrowserRouter>
         <Layout>
           <Routes>
