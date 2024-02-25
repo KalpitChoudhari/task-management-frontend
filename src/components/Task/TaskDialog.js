@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
-import { COLORS } from '../constant';
+import { COLORS } from '../../constant';
 import { toast } from 'sonner';
 
 const TaskDialog = () => {

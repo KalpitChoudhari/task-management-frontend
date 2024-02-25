@@ -60,7 +60,7 @@ const Section = props => {
       </div>
       {
         currentTasks.map(task => (
-          <Todo key={task.id} id={task.id} color={task.color} day="Today" title={task.title} description={task.description} timestamp={task.created_at} />
+          <Todo key={task.id} task={task} day="Today" />
         ))
       }
     </div>

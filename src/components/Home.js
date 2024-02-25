@@ -4,7 +4,7 @@ import axios from "axios";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Section from "./Section";
-import TaskDialog from "./TaskDialog";
+import TaskDialog from "./Task/TaskDialog";
 
 const Home = () => {
   const authToken = localStorage.getItem('_user_access_token');
