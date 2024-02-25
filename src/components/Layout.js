@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
       </nav>
 
       <main>
-        <h2>This is layout</h2>
+        <h2 className="text-3xl font-bold underline">This is layout</h2>
         {children}
       </main>
     </>
