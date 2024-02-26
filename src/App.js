@@ -10,7 +10,7 @@ function App() {
     <div className="App max-w-screen-lg mx-auto">
       <BrowserRouter>
         <Layout>
-        <Toaster />
+        <Toaster position='top-right' richColors />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sign-in" element={<Login type="login" />} />

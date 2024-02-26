@@ -4,10 +4,11 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import { toast } from 'sonner';
 import SelectDemo from '../CustomSelect';
+import { COLORS } from '../../constant';
 
 const UpdateTaskDialog = props => {
   const { task, open, onClose } = props;
-  const { title: name, description, color, id, status } = task;
+  const { title: name, description, id, status } = task;
   const [selectedStatus, setSelectedStatus] = useState(status);
 
   const handleUpdate = e => {
@@ -16,11 +17,11 @@ const UpdateTaskDialog = props => {
     const name = e.target.name.value;
     const description = e.target.description.value;
     const status = selectedStatus;
-  
+
     axios.patch(`http://localhost:4000/api/v1/tasks/${id}`, {
       title: name,
       description,
-      color: color,
+      color: COLORS[status],
       status: status
     }, {
       headers: {
@@ -29,7 +30,7 @@ const UpdateTaskDialog = props => {
     }).then(_ => {
       toast.success('Task updated successfully!');
       onClose(false);
-      setTimeout(() => window.location.reload(), 1000);
+      setTimeout(() => window.location.reload(), 200);
     }).catch(({ response }) => {
       if (response.status === 404) {
         toast.error('Task not found!');

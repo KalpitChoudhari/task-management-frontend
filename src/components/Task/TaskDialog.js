@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
-import { COLORS } from '../../constant';
 import { toast } from 'sonner';
+import { COLORS } from '../../constant';
 
 const TaskDialog = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +18,7 @@ const TaskDialog = () => {
       title: name,
       description,
       status: 'todo',
-      color: COLORS[Math.floor(Math.random() * COLORS.length)]
+      color: COLORS['todo']
     }, {
       headers: {
         'Authorization': localStorage.getItem('_user_access_token')
@@ -26,7 +26,7 @@ const TaskDialog = () => {
     }).then(_ => {
       toast.success('Task created successfully!');
       setOpen(false);
-      setTimeout(() => window.location.reload(), 1000);
+      setTimeout(() => window.location.reload(), 200);
     }).catch(({ response }) => {
       if (response.status === 404) {
         toast.error('Task not found!');

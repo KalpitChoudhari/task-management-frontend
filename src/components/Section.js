@@ -3,6 +3,7 @@ import Indicator from "./Indicator";
 import Todo from "./Todo";
 import axios from "axios";
 import { toast } from "sonner";
+import { COLORS } from "../constant";
 
 const Section = props => {
   const { name, setTasks, inProgressTasks, completedTasks, todoTasks, sectionColor } = props;
@@ -21,7 +22,7 @@ const Section = props => {
     setTasks(prev => {
       const mTasks = prev.map(task => {
         if (task.id === id) {
-          return { ...task, status: name };
+          return { ...task, status: name, color: COLORS[name] };
         }
         return task;
       })
@@ -31,14 +32,14 @@ const Section = props => {
     axios.patch(`http://localhost:4000/api/v1/tasks/${id}`, {
       id: id,
       status: name,
-      color: sectionColor
+      color: COLORS[name]
     },
     {
       headers: {
         'Authorization': localStorage.getItem('_user_access_token')
       }
     }
-    ).then((response) => {
+    ).then((_) => {
       toast.success('Status updated successfully!');
     }).catch((error) => {
       console.log(error);

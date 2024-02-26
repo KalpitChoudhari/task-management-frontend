@@ -31,7 +31,7 @@ const Todo = props => {
     })
     .then(() => {
       toast.info('Task deleted successfully!');
-      setTimeout(() => window.location.reload(), 1000);
+      setTimeout(() => window.location.reload(), 200);
     }).catch(err => {
       console.error(err);
     });
