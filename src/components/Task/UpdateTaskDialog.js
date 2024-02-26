@@ -3,17 +3,19 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import { toast } from 'sonner';
+import SelectDemo from '../CustomSelect';
 
 const UpdateTaskDialog = props => {
   const { task, open, onClose } = props;
   const { title: name, description, color, id, status } = task;
-  // const [open, setOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(status);
 
   const handleUpdate = e => {
     e.preventDefault();
     
     const name = e.target.name.value;
     const description = e.target.description.value;
+    const status = selectedStatus;
   
     axios.patch(`http://localhost:4000/api/v1/tasks/${id}`, {
       title: name,
@@ -66,6 +68,9 @@ const UpdateTaskDialog = props => {
                 id="description"
                 defaultValue={description}
               />
+            </fieldset>
+            <fieldset className="ml-2 mt-5 mb-[15px] flex items-center gap-5">
+              <SelectDemo selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
             </fieldset>
             <div className="mt-[25px] flex justify-end">
               <button className="bg-green4 text-green11 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none border" type="submit">

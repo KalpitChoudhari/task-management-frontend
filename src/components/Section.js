@@ -2,6 +2,7 @@ import { useDrop } from "react-dnd";
 import Indicator from "./Indicator";
 import Todo from "./Todo";
 import axios from "axios";
+import { toast } from "sonner";
 
 const Section = props => {
   const { name, setTasks, inProgressTasks, completedTasks, todoTasks, sectionColor } = props;
@@ -38,7 +39,7 @@ const Section = props => {
       }
     }
     ).then((response) => {
-      console.log(response);
+      toast.success('Status updated successfully!');
     }).catch((error) => {
       console.log(error);
     })

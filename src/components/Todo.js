@@ -2,6 +2,9 @@ import { useDrag } from "react-dnd";
 import UpdateTaskDialog from "./Task/UpdateTaskDialog";
 import { useState } from "react";
 import UpdateTaskIndicator from "./UpdateTaskIndicator";
+import DeleteTaskIndicator from "./DeleteTaskIndicator";
+import axios from "axios";
+import { toast } from "sonner";
 
 const Todo = props => {
   const { task, day } = props;
@@ -19,6 +22,20 @@ const Todo = props => {
   const handleTaskNameClick = () => {
     setIsUpdateDialogOpen(true);
   };
+
+  const deleteTask = () => {
+    axios.delete(`http://localhost:4000/api/v1/tasks/${id}`, {
+      headers: {
+        'Authorization': localStorage.getItem('_user_access_token')
+      }
+    })
+    .then(() => {
+      toast.info('Task deleted successfully!');
+      setTimeout(() => window.location.reload(), 1000);
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 
   return (
     <div
@@ -40,7 +57,10 @@ const Todo = props => {
           {timestamp}
         </div>
       </div>
-      <UpdateTaskIndicator openUpdateModal={() => setIsUpdateDialogOpen(true)} task={task} />
+      <div className="flex flex-col justify-between h-[100px]">
+        <UpdateTaskIndicator openUpdateModal={() => setIsUpdateDialogOpen(true)} task={task} />
+        <DeleteTaskIndicator deleteTask={deleteTask} />
+      </div>
       <UpdateTaskDialog open={isUpdateDialogOpen} task={task} onClose={() => setIsUpdateDialogOpen(false)} />
     </div>
   )
