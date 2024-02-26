@@ -28,8 +28,14 @@ const TaskDialog = () => {
       setOpen(false);
       setTimeout(() => window.location.reload(), 1000);
     }).catch(({ response }) => {
-      console.log('error', response.data.errors);
-      toast.error(response.data.errors.join(', '))
+      if (response.status === 404) {
+        toast.error('Task not found!');
+      } else if (response.status === 401) {
+        toast.error('Unauthorized access!');
+      } else {
+        console.log('error', response.data);
+        toast.error(response?.data?.errors?.join(', '))
+      }
     });
   };
 

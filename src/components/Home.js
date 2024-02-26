@@ -5,10 +5,12 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Section from "./Section";
 import TaskDialog from "./Task/TaskDialog";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const authToken = localStorage.getItem('_user_access_token');
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (authToken) {
@@ -27,6 +29,23 @@ const Home = () => {
       fetchTasks();
     }
   }, [authToken])
+
+  const handleSignOut = () => {
+    const token = localStorage.getItem('_user_access_token');
+    axios.delete('http://localhost:4000/users/sign_out', {
+      headers: {
+        'Authorization': token
+      }
+    }
+    ).then((response) => {
+      if (response.status === 200) {
+        localStorage.removeItem('_user_access_token');
+        navigate('/sign-in');
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
 
   const inProgressTasks = tasks.filter(task => task.status === 'in_progress');
   const completedTasks = tasks.filter(task => task.status === 'completed');
@@ -49,7 +68,12 @@ const Home = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <TaskDialog />
+      <div className="flex justify-between items-center">
+        <TaskDialog />
+        <button className="mt-5 text-violet11 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none border" onClick={handleSignOut}>
+            Sign Out
+        </button>
+      </div>
       <div className="bg-[#f4f4f4] rounded mt-2">
         <div className="grid grid-cols-3 grid-flow-col gap-3 p-2 overflow-y-auto" style={{ height: '680px' }}>
           {
