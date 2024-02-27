@@ -6,6 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import Section from "./Section";
 import TaskDialog from "./Task/TaskDialog";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Home = () => {
   const authToken = localStorage.getItem('_user_access_token');
@@ -23,6 +24,10 @@ const Home = () => {
           });
           setTasks(response.data);
         } catch (error) {
+          if (error.response.status === 401) {
+            localStorage.removeItem('_user_access_token');
+            toast.error('You need to sign in to access this page');
+          }
           console.log(error);
         }
       }

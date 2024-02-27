@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 const Todo = props => {
   const { task, day } = props;
-  const { title, description, timestamp, color, id } = task;
+  const { title, description, color, id } = task;
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -52,9 +52,6 @@ const Todo = props => {
         </div>
         <div className="text-xs antialiased text-wrap text-start mt-1 h-10 overflow-scroll">
           {description}
-        </div>
-        <div className="mt-3 text-xs font-medium">
-          {timestamp}
         </div>
       </div>
       <div className="flex flex-col justify-between h-[100px]">

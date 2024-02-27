@@ -55,14 +55,14 @@ const Section = props => {
   }))
 
   return (
-    <div className="h-full" ref={drop}>
+    <div className={`h-full ${isOver ? 'opacity-30' : 'opacity-100'}`} ref={drop}>
       <div className="bg-white rounded-md flex justify-between px-5 py-1 items-center mb-5 top-0 z-50">
         <span className="antialiased text-sm capitalize">{name.replace("_"," ")}</span>
         <Indicator color={sectionColor} />
       </div>
       {
         currentTasks.map(task => (
-          <Todo key={task.id} task={task} day="Today" />
+          <Todo key={task.id} task={task} day={task.created_at} />
         ))
       }
     </div>
