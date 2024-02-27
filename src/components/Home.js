@@ -16,7 +16,7 @@ const Home = () => {
     if (authToken) {
       const fetchTasks = async () => {
         try {
-          const response = await axios.get('http://localhost:4000/api/v1/tasks', {
+          const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/tasks`, {
             headers: {
               'Authorization': authToken
             }
@@ -32,7 +32,7 @@ const Home = () => {
 
   const handleSignOut = () => {
     const token = localStorage.getItem('_user_access_token');
-    axios.delete('http://localhost:4000/users/sign_out', {
+    axios.delete(`${process.env.REACT_APP_BASE_URL}/users/sign_out`, {
       headers: {
         'Authorization': token
       }

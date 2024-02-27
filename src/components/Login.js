@@ -13,7 +13,7 @@ const Login = ({ type }) => {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    const URI = currentType === 'signup' ? 'http://localhost:4000/users' : 'http://localhost:4000/users/sign_in';
+    const URI = currentType === 'signup' ? `${process.env.REACT_APP_BASE_URL}/users` : `${process.env.REACT_APP_BASE_URL}/users/sign_in`;
     const message = currentType === 'signup' ? 'Signed up successfully!' : 'Signed in successfully!';
 
     await axios.post(URI, {

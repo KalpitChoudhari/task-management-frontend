@@ -18,7 +18,7 @@ const UpdateTaskDialog = props => {
     const description = e.target.description.value;
     const status = selectedStatus;
 
-    axios.patch(`http://localhost:4000/api/v1/tasks/${id}`, {
+    axios.patch(`${process.env.REACT_APP_BASE_URL}/api/v1/tasks/${id}`, {
       title: name,
       description,
       color: COLORS[status],

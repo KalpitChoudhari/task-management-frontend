@@ -14,7 +14,7 @@ const TaskDialog = () => {
     const name = e.target.name.value;
     const description = e.target.description.value;
   
-    axios.post('http://localhost:4000/api/v1/tasks', {
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/tasks`, {
       title: name,
       description,
       status: 'todo',

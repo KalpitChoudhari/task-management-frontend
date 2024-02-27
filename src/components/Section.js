@@ -29,7 +29,7 @@ const Section = props => {
       return mTasks;
     });
 
-    axios.patch(`http://localhost:4000/api/v1/tasks/${id}`, {
+    axios.patch(`${process.env.REACT_APP_BASE_URL}/api/v1/tasks/${id}`, {
       id: id,
       status: name,
       color: COLORS[name]

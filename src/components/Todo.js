@@ -24,7 +24,7 @@ const Todo = props => {
   };
 
   const deleteTask = () => {
-    axios.delete(`http://localhost:4000/api/v1/tasks/${id}`, {
+    axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/tasks/${id}`, {
       headers: {
         'Authorization': localStorage.getItem('_user_access_token')
       }
